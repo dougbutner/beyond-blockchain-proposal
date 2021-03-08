@@ -5,7 +5,7 @@ We'll introduce the concept of geodomains as an **open source EOSIO standard**, 
 
 These geodomains feature: 
 > Note: piggyback means we can hopefully use something from TLOS, SEEDS or others
-1. Geojson domains (ESRI 4326)
+1. Geojson domains (ESRI 4326, ISO 3166+)
 2. Funding structure (piggyback I hope)
 3. Constitution (Rights + Restrictions, piggyback)
 4. Elected leaders in charge of directing funds to publicly-proposed and provable addresses, and manually approving distribution of funds according to work done, verified by IPFS hash of proof media. (partially piggyback)
@@ -22,7 +22,7 @@ Geodomains also have many other use cases yet to be discovered.
 ## How a Geodomain is Stored
 Shapefiles in a PostgreSQL database are used on the front end for display and on the backend for all geometric calculation (ex. to compare a location sent from a cell phone to a geodomain)
 
-ISO or similar abbreviation (ID) sets for each geopolitical layer are stored on-chain, and new super and subset IDs are stored directly in tables. These shorthands are used to save resources. 
+ISO 3166+ or similar abbreviation (ID) sets for each geopolitical layer are stored on-chain, and new super and subset IDs are stored directly in tables. These shorthands are used to save resources. 
 
 ## How it all works
 
@@ -55,3 +55,12 @@ On-chain
 		- Hoping we can work with an existing contract, so need to re-invent the wheel. 
 	- Proof System 
 		- Simple table with user, id of reward id, IPFS hash (or array of hashes) of proof media. 
+
+Off-chain Backend
+- PostgreSQL db with a shapefile (callable for GEOJSON) for each defined geodomain, sub and superset used to display info graphically. Shapefiles are too big to store on chain.
+
+> Note: Because we are using standard location codes, others can build their own backend using shapefiles / geojson of their desired fidelity.
+
+> Note 2: It's also possible to build this without a shapefile/geojson backend and instead use a service from Google, etc to get this data. This costs money for API use, (which is why I did it myself in PostgreSQL for cXc.world) but maybe we could get a break from Google for this project. 
+
+Original Proposal post on Telegram: https://t.me/dappstelos/14771
